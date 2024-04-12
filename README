@@ -2,8 +2,7 @@
 
 A simple set of classes to help you deal with geometry processing using IFC
 
-> [!WARNING] 
->
+> !!
 > This is very unoptimized for medium and large models. Therefore, teh only current purpose is to allow the proof of concept in small models and help better understand the geometry processing of IFC models.
 
 This CheckModel package is based on the usage of IfcOpenShell and Trimesh. Therefore, most of the methods used to execute the verifications are from these other libraries and I recommend accessing their documentation.
