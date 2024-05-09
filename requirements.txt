@@ -1,7 +1,6 @@
 attrs==22.1.0
 autopep8==1.7.0
-colorama==0.4.5
-ifcopenshell==0.7.0
+ifcopenshell==0.7.0.240423
 jsonschema==4.10.0
 numpy==1.25.0
 pandas==2.0.0
