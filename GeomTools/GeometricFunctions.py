@@ -4,7 +4,7 @@ import trimesh
 
 # geometric functions -----------------------------------------------------
 
-def get_angle_of_normal(normal, axis="Z"):
+def get_angle_of_normal(normal, axis="Z") -> float:
     
     if axis == "Z":
         # Define a reference vector (e.g., [0, 0, 1] for the positive Z-axis)
@@ -20,8 +20,6 @@ def get_angle_of_normal(normal, axis="Z"):
     # Normalize the normal vector (ensure it has unit length)
     normalized_normal = normal / np.linalg.norm(normal)
 
-    
-
     # Calculate the dot product between the normalized normal and the reference vector
     dot_product = np.dot(normalized_normal, reference_vector)
 
@@ -33,7 +31,7 @@ def get_angle_of_normal(normal, axis="Z"):
 
     return angle_deg
 
-def get_rotated_mesh_in_z_axis(mesh, degrees):
+def get_rotated_mesh_in_z_axis(mesh, degrees) -> trimesh.Trimesh:
     # Convert degrees to radians
     radians = np.radians(degrees)
     
@@ -52,7 +50,7 @@ def get_rotated_mesh_in_z_axis(mesh, degrees):
     
     return new_mesh
 
-def get_projected_mesh(mesh, plane_point):
+def get_projected_mesh(mesh, plane_point) -> trimesh.Trimesh:
     
     '''Returns a mesh projection of a mesh 
     in a plane normal to Y-Axis defined by a specific point'''
@@ -61,7 +59,7 @@ def get_projected_mesh(mesh, plane_point):
     new_mesh.apply_transform(trimesh.transformations.projection_matrix(plane_point, [0,0,1], pseudo=True))
     return new_mesh
 
-def get_projected_meshes(element_list, plane_point):
+def get_projected_meshes(element_list, plane_point) -> list[trimesh.Trimesh]:
     
     '''Returns a mesh projection of a list of api Elements 
     in a plane normal to Y-Axis defined by a specific point'''
@@ -82,7 +80,7 @@ def get_projected_meshes(element_list, plane_point):
         
     return projected_meshes
 
-def get_most_distant_point_in_axis(mesh,axis):
+def get_most_distant_point_in_axis(mesh,axis) -> float:
     
     '''Returns the most distant point from a mesh in a specified axis
     -- the axis should be 'Y', 'X' or 'Z' '''
@@ -96,7 +94,7 @@ def get_most_distant_point_in_axis(mesh,axis):
         
     return point
 
-def get_perpendicular_distance_point_to_line(point,path):
+def get_perpendicular_distance_point_to_line(point,path) -> float:
     
     '''Returns the perpendicular distance from a point to a path line'''
     
@@ -122,11 +120,11 @@ def get_perpendicular_distance_point_to_line(point,path):
     
     return distance
 
-def get_footprint_area(mesh):
+def get_footprint_area(mesh) -> float:
     
     return mesh.section([0,0,1],mesh.bounds[1]-0.1).to_planar()[0].area
 
-def get_depth(mesh, front_mesh):
+def get_depth(mesh, front_mesh) -> float:
     
     # Determine the direction based on the centroids of the front mesh and the mesh's oriented bounding box
     direction_to_other_object = front_mesh.centroid - mesh.bounding_box_oriented.centroid
@@ -150,15 +148,15 @@ def get_depth(mesh, front_mesh):
     # Rotate the mesh and gets it y component
     return((get_rotated_mesh_in_z_axis(mesh.bounding_box_oriented, rotation_angle).extents)[1])
 
-def get_projected_area_of_element(element):
+def get_projected_area_of_element(element) -> float:
             
     return trimesh.path.polygons.projected(element,normal=[0,0,1]).area
 
-def get_projected_area_of_elements(elements):
+def get_projected_area_of_elements(elements) -> float:
     
     return sum([get_projected_area_of_element(el.mesh) for el in elements])
 
-def get_distance_object_to_point(obj,point,axis="Y"): 
+def get_distance_object_to_point(obj,point,axis="Y") -> float: 
       
     axis_dict = {
         "X":0,
@@ -176,5 +174,4 @@ def get_distance_object_to_point(obj,point,axis="Y"):
     # Calculate the y-axis distance between the original point and the closest vertex
     distance = np.abs(point[axis_dict[axis]] - path_vertices[closest_vertex_idx, axis_dict[axis]])
         
-
     return distance
