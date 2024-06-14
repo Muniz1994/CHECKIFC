@@ -2,7 +2,7 @@ from GeomTools.CheckModel import CheckModel
 import trimesh
 
 # load model
-my_model = CheckModel("BuildingTeste3.ifc")
+my_model = CheckModel("TestFile/BuildingTeste3.ifc")
 
 
 # get examples of objects that collide
