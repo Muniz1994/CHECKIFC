@@ -1,5 +1,5 @@
 import ifcopenshell
-from GeomTools.CheckElement import CheckElement
+from .CheckElement import CheckElement
 from .Selector import Selector
 import ifcopenshell.util.shape
 import ifcopenshell.geom
