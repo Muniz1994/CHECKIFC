@@ -48,7 +48,7 @@ class CheckModel:
     walls = my_model.select('.IfcWall')
     
     '''
-    def __init__(self, ifc_path, load_geometry=False) -> None:
+    def __init__(self, ifc_path, load_geometry=False, disable_openings=False) -> None:
 
         self.ifc: ifcopenshell.file = ifcopenshell.open(ifc_path) # The IfcOpenShell file
 
@@ -63,6 +63,9 @@ class CheckModel:
 
         self.__geometry_settings.set(self.__geometry_settings.APPLY_DEFAULT_MATERIALS, True)
 
+        if disable_openings:
+                    self.__geometry_settings.set("disable-opening-subtractions", True)
+               
         contexts = [c.id() for c in self.ifc.by_type("IfcGeometricRepresentationContext") if c.ContextIdentifier == "Body"]
         
         self.__geometry_settings.set_context_ids(contexts)
